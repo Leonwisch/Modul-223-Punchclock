@@ -4,35 +4,34 @@ import jakarta.persistence.*;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 
 public class Entry {
-
   @Id
-
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-
   @Schema(readOnly = true)
-
   private Long id;
 
   @Column(nullable = false)
-
   private LocalDateTime checkIn;
 
   @Column(nullable = false)
-
   private LocalDateTime checkOut;
 
-  @ManyToOne
+   @Column(length = 2000)
+  private String description;
 
+  @JsonIgnoreProperties("entries")
+  @ManyToOne
   private Category category;
 
+  @JsonIgnoreProperties("entries")
   @ManyToMany
-
   private Set<Tag> tags;
 
   public Long getId() {
@@ -93,6 +92,16 @@ public class Entry {
 
     this.tags = tags;
 
+  }
+
+  public String getDescription() {
+
+    return description;
+
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 }

@@ -25,9 +25,8 @@ public class Category {
   @Column(nullable = false)
 
   private String title;
-
+  
   @OneToMany(mappedBy = "category")
-
   private Set<Entry> entries;
 
   public Long getId() {
